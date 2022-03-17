@@ -1136,6 +1136,29 @@ class ProjectsSubscriptionsResource {
     return Subscription.fromJson(
         _response as core.Map<core.String, core.dynamic>);
   }
+  async.Future<Subscription> put(
+    core.String subscription,core.String projectId,core.String topicId,core.String attribute,core.String value, {
+    core.String? $fields,
+  }) async {
+    final _queryParams = <core.String, core.List<core.String>>{
+      if ($fields != null) 'fields': [$fields],
+    };
+
+    final _url = 'v1/' + core.Uri.encodeFull('$subscription');
+
+    final _response = await _requester.request(
+      _url,
+      'PUT',
+      queryParams: _queryParams,
+      body:
+        {
+          'topic': 'projects/$projectId/topics/$topicId',
+          "filter": 'attributes.$attribute=\"$value\"'
+        }
+    );
+    return Subscription.fromJson(
+        _response as core.Map<core.String, core.dynamic>);
+  }
 
   /// Gets the access control policy for a resource.
   ///
